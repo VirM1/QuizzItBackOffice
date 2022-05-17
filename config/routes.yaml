@@ -1,13 +1,20 @@
+#Annotations
 controllers:
     resource: ../src/Controller/
     type: annotation
-
+api:
+    type: annotation
+    prefix: /api
+    resource: ../src/Controller/Api/
 kernel:
     resource: ../src/Kernel.php
     type: annotation
 
+
+#Routes
 dashboard:
     path: /admin
     controller: App\Controller\Admin\DashboardController::index
+
 api_login_check:
     path: /api/login_check
