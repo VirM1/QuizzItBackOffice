@@ -16,7 +16,13 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-
+            logout:
+                path: app_security_logout
+            form_login:
+                # "login" is the name of the route created previously
+                login_path: app_security_login
+                check_path: app_security_login
+                enable_csrf: true
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -27,7 +33,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: '^/dev/*', ip: 127.0.0.1 }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
