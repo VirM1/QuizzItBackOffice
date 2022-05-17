@@ -1,7 +1,10 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block page_title 'Import fichier CSV' %}
+{% block page_title 'Import fichier CSV/XLSX' %}
 {% block page_content %}
     {{ form_start(form) }}
     {{ form_end(form) }}
+    <a href="{{ path("app_admin_template") }}">
+        télécharger template
+    </a>
 {% endblock %}

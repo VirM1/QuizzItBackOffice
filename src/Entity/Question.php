@@ -138,6 +138,11 @@ class Question
     public function setBonneReponse(?Reponse $bonneReponse): self
     {
         $this->bonneReponse = $bonneReponse;
+        if($bonneReponse instanceof Reponse){
+            if($bonneReponse->getQuestion() !== $this){
+                $this->bonneReponse = null;
+            }
+        }
 
         return $this;
     }
