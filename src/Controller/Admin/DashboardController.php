@@ -12,7 +12,7 @@ class DashboardController extends AbstractDashboardController
 {
     public function index(): Response
     {
-        return $this->render('admin/dashboard.html.twig');
+        return $this->render('backOffice/dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
@@ -42,6 +42,7 @@ class DashboardController extends AbstractDashboardController
     {
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            MenuItem::linktoRoute('Importer fichier csv', 'fa fa-chart-bar', 'app_admin_import'),
         ];
     }
 }
