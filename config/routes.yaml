@@ -9,3 +9,5 @@ kernel:
 dashboard:
     path: /admin
     controller: App\Controller\Admin\DashboardController::index
+api_login_check:
+    path: /api/login_check
