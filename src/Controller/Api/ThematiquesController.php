@@ -15,7 +15,7 @@ class ThematiquesController extends AbstractController
 {
     #[Route('/thematiques', name: 'api_thematiques')]
     public function retrieveThematiques(ThematiqueRepository $repo): JsonResponse {
-        $thematiques = $repo->findAll();
+        $thematiques = $repo->findAllRaw();
         return new JsonResponse($thematiques);
     }
 }

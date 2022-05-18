@@ -39,6 +39,16 @@ class ThematiqueRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Thematiques[] Returns an array of Thematiques
+     */
+    public function findAllRaw() {
+        return $this->createQueryBuilder('m')
+            ->select('m')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
 //    /**
 //     * @return Thematique[] Returns an array of Thematique objects
 //     */

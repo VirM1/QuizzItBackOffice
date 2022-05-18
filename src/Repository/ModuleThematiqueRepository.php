@@ -45,11 +45,11 @@ class ModuleThematiqueRepository extends ServiceEntityRepository
     public function findAllByThematiqueId($value): array
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.thematique_id = :val')
+            ->andWhere('m.thematique = :val')
             ->setParameter('val', $value)
-            ->orderBy('m.libelle_module_thematique', 'ASC')
+            ->orderBy('m.libelleModuleThematique', 'ASC')
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
         ;
     }
 
