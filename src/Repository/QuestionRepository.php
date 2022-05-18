@@ -44,15 +44,14 @@ class QuestionRepository extends ServiceEntityRepository
      */
     public function findQuizzQuestionsByModule($value): array
     {
-        $allThematiqueQuestions = $this->createQueryBuilder('m')
-            ->andWhere('m.module_thematique_id = :val')
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.moduleThematique = :val')
             ->setParameter('val', $value)
             ->orderBy("RAND()")
             ->setMaxResults(20)
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
             ;
-        return array_rand($allThematiqueQuestions, 20);
     }
 
 //    /**
