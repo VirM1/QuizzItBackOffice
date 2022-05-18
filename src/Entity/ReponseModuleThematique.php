@@ -31,11 +31,19 @@ class ReponseModuleThematique
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'reponseModuleThematique')]
     private $questions;
 
+    #[ORM\ManyToMany(targetEntity: Reponse::class, inversedBy: 'reponseModuleThematiques')]
+    #[ORM\JoinTable(name:"reponses_reponse_module_thematique")]
+    #[ORM\JoinColumn(name: "date_creation", referencedColumnName: "date_creation")]
+    #[ORM\JoinColumn(name: "module_id", referencedColumnName: "module_id")]
+    #[ORM\JoinColumn(name: "utilisateur_id", referencedColumnName: "utilisateur_id")]
+    private $reponses;
+
 
     public function __construct()
     {
         $this->dateCreation = new DateTime();
         $this->questions = new ArrayCollection();
+        $this->reponses = new ArrayCollection();
     }
 
     public function getDateCreation(): ?\DateTimeInterface
@@ -110,6 +118,30 @@ class ReponseModuleThematique
         if ($this->questions->removeElement($question)) {
             $question->removeReponseModuleThematique($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reponse>
+     */
+    public function getReponses(): Collection
+    {
+        return $this->reponses;
+    }
+
+    public function addReponses(Reponse $reponses): self
+    {
+        if (!$this->reponses->contains($reponses)) {
+            $this->reponses[] = $reponses;
+        }
+
+        return $this;
+    }
+
+    public function removeReponses(Reponse $reponses): self
+    {
+        $this->reponses->removeElement($reponses);
 
         return $this;
     }
