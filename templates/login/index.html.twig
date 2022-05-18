@@ -10,8 +10,8 @@
         {% endif %}
         <div class="row mt-5">
             <div class="d-flex col-12 mt-5">
-                <div class="mt-5">
-                    <form action="{{ path('app_security_login') }}" method="post" class="d-flex flex-column flex-wrap loginBlock">
+                <div class="mx-auto mt-5">
+                    <form action="{{ path('app_security_login') }}" method="post" class="d-flex flex-column flex-wrap loginBlock p-4">
                         <label for="username">Email:</label>
                         <input class="form-control mb-3" type="text" id="username" name="_username" value="{{ last_username }}"/>
 
