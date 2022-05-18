@@ -44,7 +44,7 @@ class ReponseCrudController extends AbstractCrudController
                  RelationFilter::new(
                      "question.moduleThematique",
                      "libelleModuleThematique",
-                     Thematique::class,
+                     ModuleThematique::class,
                      "shared.module")
              )
              ;
