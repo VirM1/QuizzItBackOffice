@@ -21,8 +21,18 @@ dashboard:
     question: "Questions"
     reponse: "Réponses"
 
+reponse:
+  titre: "Titre de la réponse"
+  plural: "Réponses"
+  singular: "Réponse"
+
+shared:
+  question: "Question"
+  module: "Modules"
+  thematique: "Thématique"
 
 user:
   role:
+    superAdmin : "Super Administrateur"
     admin: "Administrateur"
     user: "Utilisateur"
