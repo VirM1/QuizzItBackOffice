@@ -32,6 +32,7 @@ class Question
     private $reponses;
 
     #[ORM\OneToOne(targetEntity: Reponse::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(onDelete: "SET NULL")]
     private $bonneReponse;
 
     #[ORM\ManyToMany(targetEntity: ReponseModuleThematique::class, inversedBy: 'questions')]

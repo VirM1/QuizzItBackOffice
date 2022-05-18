@@ -6,6 +6,7 @@ use App\Entity\Question;
 use App\Entity\Reponse;
 use App\Entity\Utilisateur;
 use App\Form\ReponseType;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -32,7 +33,11 @@ class QuestionCrudController extends AbstractCrudController
         yield NumberField::new('noteQuestion', "question.note");
         yield AssociationField::new("moduleThematique", "question.module");
 
-        yield AssociationField::new("bonneReponse", "question.bonneReponse")->hideWhenCreating();
+        yield AssociationField::new("bonneReponse", "question.bonneReponse")
+            ->hideWhenCreating()
+            ->setQueryBuilder(
+                fn ($queryBuilder) => $queryBuilder->andWhere("entity.question = :question")->setParameter("question",$this->getContext()->getEntity()->getInstance())
+            );
 
         yield CollectionField::new("reponses")
             ->setEntryIsComplex(true)
