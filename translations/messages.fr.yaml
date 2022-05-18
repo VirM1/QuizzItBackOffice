@@ -57,3 +57,12 @@ user:
     superAdmin : "Super Administrateur"
     admin: "Administrateur"
     user: "Utilisateur"
+
+
+utilisateur:
+  email: "Adresse Email"
+  prenom: "Prénom"
+  nom: "Nom"
+  roles: "Roles"
+  plural: "Utilisateurs"
+  singular: "Utilisateur"
