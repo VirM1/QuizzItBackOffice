@@ -39,6 +39,21 @@ class QuestionRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Question[] Returns an array of Question objects
+     */
+    public function findQuizzQuestionsByModule($value): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.moduleThematique = :val')
+            ->setParameter('val', $value)
+            ->orderBy("RAND()")
+            ->setMaxResults(20)
+            ->getQuery()
+            ->getArrayResult()
+            ;
+    }
+
 //    /**
 //     * @return Question[] Returns an array of Question objects
 //     */
