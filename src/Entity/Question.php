@@ -28,7 +28,7 @@ class Question
     #[ORM\JoinColumn(nullable: false)]
     private $moduleThematique;
 
-    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class)]
+    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class,orphanRemoval: true)]
     private $reponses;
 
     #[ORM\OneToOne(targetEntity: Reponse::class, cascade: ['persist', 'remove'])]
