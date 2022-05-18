@@ -21,7 +21,8 @@ class ImportCSVFileAndAssociateType extends AbstractType
                 "constraints"=>array(new File(array(
                     "mimeTypes"=>array("application/vnd.ms-excel","text/csv","application/vnd.oasis.opendocument.spreadsheet"),
                     "maxSize"=>"3M"
-                )))
+                ))),
+                "label"=>"import.fileImport"
             ))
             ->add("module",EntityType::class,array(
                 'class' => ModuleThematique::class,
@@ -30,8 +31,10 @@ class ImportCSVFileAndAssociateType extends AbstractType
                         ->orderBy('m.libelleModuleThematique', 'ASC');
                 },
                 'choice_label' => 'libelleModuleThematique',
+                "attr"=>array("class"=>"form-select"),
+                "label"=>"import.module"
             ))
-            ->add("submit",SubmitType::class,array())
+            ->add("submit",SubmitType::class,array("attr"=>array("class"=>"btn btn-primary"),"label"=>"import.validate"))
         ;
     }
 

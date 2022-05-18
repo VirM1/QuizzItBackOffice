@@ -1,10 +1,34 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block page_title 'Import fichier CSV/XLSX' %}
+{% block page_title 'import.title'|trans %}
 {% block page_content %}
-    {{ form_start(form) }}
-    {{ form_end(form) }}
-    <a href="{{ path("app_admin_template") }}">
-        télécharger template
-    </a>
+    <div class="container-fluid">
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-12 mt-4">
+                    {{ "import.topo"|trans }}
+                </div>
+                <div class="col-6 mt-3">
+                    <div class="d-flex flex-column">
+                        {{ form_label(form.fileImport) }}
+                        {{ form_widget(form.fileImport) }}
+                    </div>
+                </div>
+                <div class="col-6 mt-3">
+                    <div class="d-flex flex-column">
+                        {{ form_label(form.module) }}
+                        {{ form_widget(form.module) }}
+                    </div>
+                </div>
+                <div class="col-4 mt-3">
+                    {{ form_widget(form.submit) }}
+                </div>
+                <div class="col-4 mt-3">
+                    <a href="{{ path("app_admin_template") }}" class="btn btn-secondary">
+                        {{ "import.downloadTemplate"|trans }}
+                    </a>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

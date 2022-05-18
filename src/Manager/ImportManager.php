@@ -77,32 +77,33 @@ class ImportManager
             if($this->fieldsSecure($data[0])){
                 unset($data[0]);
                 foreach ($data as $row){
-                    $question = new Question();
-                    $question->setModuleThematique($moduleThematique);
-                    $question->setTitreQuestion($row[0]);
-                    $this->entityManager->persist($question);
-                    $absent = false;
-                    $reponses = array();
-                    for ($i = 1;$i<5;$i++){
-                        if(!empty($row[$i])){
-                            $reponse = new Reponse();
-                            $reponse->setTitreReponse($row[$i]);
-                            $reponse->setQuestion($question);
-                            array_push($reponses,$reponse);
-                            $this->entityManager->persist($reponse);
-                        }else{
-                            $absent = true;
+                    if(!empty($row[0])){
+                        $question = new Question();
+                        $question->setModuleThematique($moduleThematique);
+                        $question->setTitreQuestion($row[0]);
+                        $this->entityManager->persist($question);
+                        $last = -1;
+                        $reponses = array();
+                        for ($i = 1;$i<5;$i++){
+                            if(!empty($row[$i])){
+                                $reponse = new Reponse();
+                                $reponse->setTitreReponse($row[$i]);
+                                $reponse->setQuestion($question);
+                                array_push($reponses,$reponse);
+                                $this->entityManager->persist($reponse);
+                                $last = $i-1;
+                            }
                         }
-                    }
-                    if(!$absent && count($reponses)>=1){
-                        $number = intval(preg_replace("/[^0-9]/", "", $row[5]));
-                        if($number != 0 && $number <= 4){
-                            $question->setBonneReponse($reponses[$number-1]);
-                        }else{
-                            $question->setBonneReponse($reponses[0]);
+                        if($last !=-1  && count($reponses)>=1){
+                            $number = intval(preg_replace("/[^0-9]/", "", $row[5]));
+                            if($number != 0 && $number <= 4){
+                                $question->setBonneReponse($reponses[$number-1]);
+                            }else{//todo : prendre la dernière instance
+                                $question->setBonneReponse($reponses[$last]);
+                            }
                         }
-                    }
 
+                    }
                 }
                 $this->entityManager->flush();
             }

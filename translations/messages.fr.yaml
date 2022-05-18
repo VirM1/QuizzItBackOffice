@@ -1,0 +1,7 @@
+import:
+  downloadTemplate: "Télécharger template"
+  validate: "Valider"
+  topo: "Cette action vous permet de convertir un fichier au format .csv/.xlsx/.ods en questions associées avec leur réponses ainsi que le module thématique que vous sélectionnerez. Afin de bien importer votre fichier, il devra présenter en entête sur la ligne 1 : question-r1-r2-r3-r4-b; un template est également disponible."
+  fileImport: "Importer votre fichier"
+  module: "ModuleThématique à associer"
+  title: "Import fichier CSV/XLSX/ODS"
