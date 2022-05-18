@@ -5,3 +5,18 @@ import:
   fileImport: "Importer votre fichier"
   module: "ModuleThématique à associer"
   title: "Import fichier CSV/XLSX/ODS"
+
+dashboard:
+  section:
+    user: "Utilisateur"
+    import: "Imports"
+  item:
+    dashboard: "Dashboard"
+    importFile: "Importer fichier csv"
+    user: "Utilisateur"
+
+
+user:
+  role:
+    admin: "Administrateur"
+    user: "Utilisateur"

@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,8 +43,14 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         return [
-            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
-            MenuItem::linktoRoute('Importer fichier csv', 'fa fa-chart-bar', 'app_admin_import'),
+            MenuItem::linkToDashboard('dashboard.item.dashboard', 'fa fa-home'),
+
+            MenuItem::section("dashboard.section.user"),
+            MenuItem::linkToCrud("dashboard.item.user","fa fa-user",Utilisateur::class),
+
+
+            MenuItem::section("dashboard.section.import"),
+            MenuItem::linktoRoute("dashboard.item.importFile", 'fa fa-chart-bar', 'app_admin_import'),
         ];
     }
 }
