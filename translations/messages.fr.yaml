@@ -35,7 +35,7 @@ question:
   module: "Module lié à la question"
   bonneReponse: "Bonne réponse"
   flash:
-    nullBonneReponse: "Modifications prises en compte, cependant la bonne réponse à été mise à NULL puisque vous avez supprimé la réponse associée"
+    nullBonneReponse: "Modifications prises en compte, cependant la bonne réponse à été mise à NULL puisque vous avez supprimé la réponse associée."
 
 shared:
   question: "Question"

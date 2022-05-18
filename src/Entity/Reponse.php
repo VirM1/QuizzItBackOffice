@@ -17,7 +17,7 @@ class Reponse
     private $titreReponse;
 
     #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'reponses')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false,onDelete: "CASCADE")]
     private $question;
 
     public function getId(): ?int
