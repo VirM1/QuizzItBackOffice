@@ -39,20 +39,19 @@ class ModuleThematiqueRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return ModuleThematique[] Returns an array of ModuleThematique objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return ModuleThematique[] Returns an array of ModuleThematique objects
+     */
+    public function findAllByThematiqueId($value): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.thematique_id = :val')
+            ->setParameter('val', $value)
+            ->orderBy('m.libelle_module_thematique', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?ModuleThematique
 //    {
