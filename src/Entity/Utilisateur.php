@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as Serializer;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
@@ -19,11 +20,15 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public const ROLE_ADMIN = "ROLE_ADMIN";
     public const ROLE_USER = "ROLE_USER";
 
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Serializer\Groups({"serialize_user_detail"})
+     */
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;
 
@@ -36,9 +41,16 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $tokenUtilisateur;
 
+    /**
+     * @Serializer\Groups({"serialize_user_detail"})
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $nomUtilisateur;
 
+
+    /**
+     * @Serializer\Groups({"serialize_user_detail"})
+     */
     #[ORM\Column(type: 'string', length: 255)]
     private $prenomUtilisateur;
 
