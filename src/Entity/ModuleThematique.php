@@ -122,4 +122,5 @@ class ModuleThematique
 
         return $this;
     }
+
 }

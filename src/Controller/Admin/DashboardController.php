@@ -2,6 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\ModuleThematique;
+use App\Entity\Question;
+use App\Entity\Reponse;
+use App\Entity\Thematique;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -42,6 +46,10 @@ class DashboardController extends AbstractDashboardController
     {
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            MenuItem::linkToCrud('Questions', 'fas fa-list', Question::class),
+            MenuItem::linkToCrud('Réponses', 'fas fa-list', Reponse::class),
+            MenuItem::linkToCrud('Thématiques', 'fas fa-list', Thematique::class),
+            MenuItem::linkToCrud("Modules", 'fas fa-list', ModuleThematique::class)
         ];
     }
 }
