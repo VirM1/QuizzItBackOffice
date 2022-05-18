@@ -34,9 +34,17 @@ class Question
     #[ORM\OneToOne(targetEntity: Reponse::class, cascade: ['persist', 'remove'])]
     private $bonneReponse;
 
+    #[ORM\ManyToMany(targetEntity: ReponseModuleThematique::class, inversedBy: 'questions')]
+    #[ORM\JoinTable(name:"questions_reponse_module_thematique")]
+    #[ORM\InverseJoinColumn(name: "date_creation", referencedColumnName: "date_creation")]
+    #[ORM\InverseJoinColumn(name: "module_id", referencedColumnName: "module_id")]
+    #[ORM\InverseJoinColumn(name: "utilisateur_id", referencedColumnName: "utilisateur_id")]
+    private $reponseModuleThematique;
+
     public function __construct()
     {
         $this->reponses = new ArrayCollection();
+        $this->reponseModuleThematique = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,6 +138,35 @@ class Question
     public function setBonneReponse(?Reponse $bonneReponse): self
     {
         $this->bonneReponse = $bonneReponse;
+        if($bonneReponse instanceof Reponse){
+            if($bonneReponse->getQuestion() !== $this){
+                $this->bonneReponse = null;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ReponseModuleThematique>
+     */
+    public function getReponseModuleThematique(): Collection
+    {
+        return $this->reponseModuleThematique;
+    }
+
+    public function addReponseModuleThematique(ReponseModuleThematique $reponseModuleThematique): self
+    {
+        if (!$this->reponseModuleThematique->contains($reponseModuleThematique)) {
+            $this->reponseModuleThematique[] = $reponseModuleThematique;
+        }
+
+        return $this;
+    }
+
+    public function removeReponseModuleThematique(ReponseModuleThematique $reponseModuleThematique): self
+    {
+        $this->reponseModuleThematique->removeElement($reponseModuleThematique);
 
         return $this;
     }

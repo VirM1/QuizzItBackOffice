@@ -6,7 +6,9 @@ use App\Entity\ModuleThematique;
 use App\Entity\Question;
 use App\Entity\Reponse;
 use App\Entity\Thematique;
+use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +18,7 @@ class DashboardController extends AbstractDashboardController
 {
     public function index(): Response
     {
-        return $this->render('admin/dashboard.html.twig');
+        return $this->render('backOffice/dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
@@ -45,11 +47,22 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         return [
-            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
-            MenuItem::linkToCrud('Questions', 'fas fa-list', Question::class),
-            MenuItem::linkToCrud('Réponses', 'fas fa-list', Reponse::class),
-            MenuItem::linkToCrud('Thématiques', 'fas fa-list', Thematique::class),
-            MenuItem::linkToCrud("Modules", 'fas fa-list', ModuleThematique::class)
+            MenuItem::linkToDashboard('dashboard.item.dashboard', 'fa fa-home'),
+
+            MenuItem::section("dashboard.section.user"),
+            MenuItem::linkToCrud("dashboard.item.user","fa fa-user",Utilisateur::class),
+
+
+            MenuItem::section("dashboard.section.cats"),
+            MenuItem::linkToCrud('dashboard.item.thematique', "fa-solid fa-table-cells-large", Thematique::class),
+            MenuItem::linkToCrud("dashboard.item.modules", "fa-solid fa-table-cells", ModuleThematique::class),
+
+            MenuItem::section("dashboard.section.questions"),
+            MenuItem::linkToCrud('dashboard.item.question', 'fa fa-question', Question::class),
+            MenuItem::linkToCrud('dashboard.item.reponse', 'fa fa-exclamation', Reponse::class),
+
+            MenuItem::section("dashboard.section.import"),
+            MenuItem::linktoRoute("dashboard.item.importFile", 'fa fa-chart-bar', 'app_admin_import'),
         ];
     }
 }
