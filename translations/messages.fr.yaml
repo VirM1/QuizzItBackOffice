@@ -26,6 +26,15 @@ reponse:
   plural: "Réponses"
   singular: "Réponse"
 
+question:
+  plural: "Questions"
+  singular: "Question"
+  titre: "Titre de la question"
+  aide: "Aide à la question"
+  note: "Note de la question"
+  module: "Module lié à la question"
+  bonneReponse: "Bonne réponse"
+
 shared:
   question: "Question"
   module: "Modules"

@@ -34,6 +34,12 @@ class ModuleThematique
         $this->reponseModuleThematiques = new ArrayCollection();
     }
 
+
+    public function __toString(): string
+    {
+        return $this->libelleModuleThematique;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
