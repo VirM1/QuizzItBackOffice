@@ -27,7 +27,7 @@ class QuestionCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield IdField::new("id", "id")->setPermission(Utilisateur::ROLE_SUPER_ADMIN);
+        yield IdField::new("id", "id")->setPermission(Utilisateur::ROLE_SUPER_ADMIN)->hideOnForm();
         yield TextField::new('titreQuestion', "question.titre");
         yield TextField::new('aideQuestion', "question.aide");
         yield NumberField::new('noteQuestion', "question.note");

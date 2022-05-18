@@ -23,7 +23,7 @@ class ReponseCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield IdField::new("id","id")->setPermission(Utilisateur::ROLE_SUPER_ADMIN);
+        yield IdField::new("id","id")->setPermission(Utilisateur::ROLE_SUPER_ADMIN)->hideOnForm();
 
         yield TextField::new('titreReponse',"reponse.titre");
 
