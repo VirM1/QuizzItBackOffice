@@ -42,6 +42,16 @@ shared:
   module: "Modules"
   thematique: "Thématique"
 
+moduleThematique:
+  plural: "ModulesThématique"
+  singular: "ModuleThématique"
+  libelle: "Libellé moduleThématique"
+
+thematique:
+  plural: "Thématique"
+  singular: "Thématique"
+  libelleThematique: "Libellé thématique"
+
 user:
   role:
     superAdmin : "Super Administrateur"
