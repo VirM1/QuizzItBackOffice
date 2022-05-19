@@ -39,6 +39,21 @@ class ReponseModuleThematiqueRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function getCounts()
+    {
+        return $this->createQueryBuilder("r")
+            ->select(array("COUNT(IDENTITY(r)) as counting","module.libelleModuleThematique as libelle","module.id as ids"))
+            ->innerJoin("r.reponses","reponses")
+            ->innerJoin("r.questions","questions")
+            ->innerJoin("r.module","module")
+            ->andWhere("reponses = questions.bonneReponse")
+            ->addGroupBy("r.dateCreation")
+            ->addGroupBy("r.module")
+            ->addGroupBy("r.utilisateur")
+            ->getDQL();
+    }
+
 //    /**
 //     * @return ReponseModuleThematique[] Returns an array of ReponseModuleThematique objects
 //     */

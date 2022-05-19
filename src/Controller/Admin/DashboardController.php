@@ -12,44 +12,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
-
 
 
 class DashboardController extends AbstractDashboardController
 {
-    public function __construct(private ChartBuilderInterface $chartBuilder)
+    public function __construct()
     {
 
     }
 
     public function index(): Response
     {
-        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
-
-        $chart->setData([
-            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            'datasets' => [
-                [
-                    'label' => 'My First dataset',
-                    'backgroundColor' => 'rgb(255, 99, 132)',
-                    'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [0, 10, 5, 2, 20, 30, 45],
-                ],
-            ],
-        ]);
-
-        $chart->setOptions([
-            'scales' => [
-                'y' => [
-                    'suggestedMin' => 0,
-                    'suggestedMax' => 100,
-                ],
-            ],
-        ]);
-
-        return $this->render('backOffice/dashboard.html.twig',array("chart"=>$chart));
+        return $this->render('backOffice/dashboard.html.twig');
     }
 
 
@@ -88,12 +62,13 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('dashboard.item.dashboard', 'fa fa-home'),
 
             MenuItem::section("dashboard.section.user"),
-            MenuItem::linkToCrud("dashboard.item.user","fa fa-user",Utilisateur::class),
+            MenuItem::linkToCrud("dashboard.item.user", "fa fa-user", Utilisateur::class),
 
 
             MenuItem::section("dashboard.section.cats"),
             MenuItem::linkToCrud('dashboard.item.thematique', "fa-solid fa-table-cells-large", Thematique::class),
             MenuItem::linkToCrud("dashboard.item.modules", "fa-solid fa-table-cells", ModuleThematique::class),
+            MenuItem::linktoRoute("dashboard.item.modulesStat", "fas fa-chart-bar", 'app_admin_stats_of_modules'),
 
             MenuItem::section("dashboard.section.questions"),
             MenuItem::linkToCrud('dashboard.item.question', 'fa fa-question', Question::class),

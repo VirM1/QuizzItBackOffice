@@ -20,6 +20,7 @@ dashboard:
     modules: "ModuleThématique"
     question: "Questions"
     reponse: "Réponses"
+    modulesStat: "Statistiques par module"
 
 reponse:
   titre: "Titre de la réponse"
@@ -36,6 +37,9 @@ question:
   bonneReponse: "Bonne réponse"
   flash:
     nullBonneReponse: "Modifications prises en compte, cependant la bonne réponse à été mise à NULL puisque vous avez supprimé la réponse associée."
+
+stats:
+  moduleGen: "Note moyenne par module"
 
 shared:
   question: "Question"
