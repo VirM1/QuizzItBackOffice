@@ -19,7 +19,7 @@ class ImportCSVFileAndAssociateType extends AbstractType
         $builder
             ->add('fileImport',FileType::class,array(
                 "constraints"=>array(new File(array(
-                    "mimeTypes"=>array("application/vnd.ms-excel","text/csv","application/vnd.oasis.opendocument.spreadsheet"),
+                    "mimeTypes"=>array("application/vnd.ms-excel","text/plain","text/csv","application/vnd.oasis.opendocument.spreadsheet"),
                     "maxSize"=>"3M"
                 ))),
                 "label"=>"import.fileImport"

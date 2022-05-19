@@ -70,8 +70,11 @@ class ImportManager
                     break;
                 default:
                     $reader = new csvReader();
+                    $reader->setDelimiter(";");
                     break;
             }
+            $reader->setInputEncoding('ISO-8859-1');
+            $reader->setFallbackEncoding('ISO-8859-1');
             $spreadsheet = $reader->load($file->getRealPath());
             $data = $spreadsheet->getActiveSheet()->toArray();
             if($this->fieldsSecure($data[0])){
