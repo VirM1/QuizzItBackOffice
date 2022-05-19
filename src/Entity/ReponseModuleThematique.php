@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ReponseModuleThematiqueRepository;
-use DateTime;
+use App\Utils\ReponseDateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,7 +22,7 @@ class ReponseModuleThematique
     private $utilisateur;
 
     #[ORM\Id]
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'string')]
     private $dateCreation;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -41,19 +41,18 @@ class ReponseModuleThematique
 
     public function __construct()
     {
-        $this->dateCreation = new DateTime();
         $this->questions = new ArrayCollection();
         $this->reponses = new ArrayCollection();
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateCreation(): \DateTimeInterface
     {
-        return $this->dateCreation;
+        return \DateTime::createFromFormat('Y-m-d h:i:s|', $this->dateCreation);
     }
 
     public function setDateCreation(\DateTimeInterface $dateCreation): self
     {
-        $this->dateCreation = $dateCreation;
+        $this->dateCreation = $dateCreation->format('Y-m-d h:i:s');
 
         return $this;
     }
