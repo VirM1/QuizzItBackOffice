@@ -1,0 +1,11 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'stats.question'|trans %}
+{% block page_content %}
+    <div class="chart-wrapper">
+        {{ render_chart(chartReussite) }}
+    </div>
+    <div class="chart-wrapper">
+        {{ render_chart(chartReponse) }}
+    </div>
+{% endblock %}

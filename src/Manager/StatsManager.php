@@ -3,6 +3,8 @@
 namespace App\Manager;
 
 use App\Entity\ReponseModuleThematique;
+use App\Entity\Reponse;
+use App\Entity\Question;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
@@ -36,5 +38,21 @@ class StatsManager{
             GROUP BY reponse_module_thematique.module_id,reponse_module_thematique.utilisateur_id,reponse_module_thematique.date_creation"
         ),$rsm)->getResult();
         return $average;
+    }
+
+
+    public function getCountOfQuestion(Question $question)
+    {
+        return $this->entityManager->getRepository(Reponse::class)->findCountForReponse($question);
+    }
+
+
+    public function getTauxReussiteQuestion(Question $question)
+    {
+        $repo = $this->entityManager->getRepository(Question::class);
+
+        $countAll = $repo->countAllRelations($question);
+        $countRight = $repo->countRightRelations($question);
+        return array("fausses"=>$countAll[0][1]-$countRight[0][1],"justes"=>$countRight[0][1]);
     }
 }

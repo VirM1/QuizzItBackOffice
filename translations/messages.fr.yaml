@@ -35,11 +35,13 @@ question:
   note: "Note de la question"
   module: "Module lié à la question"
   bonneReponse: "Bonne réponse"
+  seeStats: "Voir les statistiques"
   flash:
     nullBonneReponse: "Modifications prises en compte, cependant la bonne réponse à été mise à NULL puisque vous avez supprimé la réponse associée."
 
 stats:
   moduleGen: "Note moyenne par module"
+  question: "Statistiques de la question"
 
 shared:
   question: "Question"

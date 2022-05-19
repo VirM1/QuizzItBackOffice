@@ -54,6 +54,31 @@ class QuestionRepository extends ServiceEntityRepository
             ;
     }
 
+
+    public function countAllRelations(Question $question):array
+    {
+        return $this->createQueryBuilder('q')
+            ->select(array("COUNT(q.id)"))
+            ->innerJoin("q.reponseModuleThematique","rmt")
+            ->andWhere('q = :question')
+            ->setParameter('question', $question)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countRightRelations(Question $question):array
+    {
+        return $this->createQueryBuilder('q')
+            ->select(array("COUNT(q.id)"))
+            ->innerJoin("q.reponseModuleThematique","rmt")
+            ->innerJoin("rmt.reponses","reponses")
+            ->andWhere('q = :question')
+            ->setParameter('question', $question)
+            ->andWhere("q.bonneReponse = reponses")
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Question[] Returns an array of Question objects
 //     */

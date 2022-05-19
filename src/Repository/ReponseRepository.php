@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Reponse;
+use App\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,19 @@ class ReponseRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findCountForReponse(Question $question): array
+    {
+
+        return $this->createQueryBuilder('r')
+            ->select(array("COUNT(IDENTITY (rmt)) as selectedCounts","r.titreReponse as libelles"))
+            ->leftJoin("r.reponseModuleThematiques","rmt")
+            ->andWhere('r.question = :question')
+            ->setParameter('question', $question)
+            ->addGroupBy("r.id")
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

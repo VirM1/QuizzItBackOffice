@@ -8,6 +8,8 @@ use App\Entity\Utilisateur;
 use App\Form\ReponseType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -73,5 +75,18 @@ class QuestionCrudController extends AbstractCrudController
         }
 
         parent::updateEntity($entityManager,$entityInstance);
+    }
+
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $seeStats = Action::new("seeStats","question.seeStats","fas fa-chart-bar")
+            ->linkToRoute('app_admin_stats_question', function (Question $question): array {
+                return array("id"=>$question->getId());
+            });
+
+        return $actions
+            ->add(Crud::PAGE_DETAIL, $seeStats)
+            ->add(Crud::PAGE_INDEX,$seeStats);
     }
 }
