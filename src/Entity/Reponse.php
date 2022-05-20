@@ -21,7 +21,7 @@ class Reponse
     /**
      * @Serializer\Groups({"serialize_quizz_detail"})
      */
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 255)]
     private $titreReponse;
 
     #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'reponses')]
