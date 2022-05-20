@@ -31,14 +31,9 @@ class QuestionsController extends AbstractController
     #[Route('/questions/envoyer-reponses', name: 'api_questions_send_answers')]
     public function sendAnswers(Request $request, EntityManagerInterface $em): JsonResponse {
         $datas = json_decode($request->getContent(), true);
-        $quizz = new ReponseModuleThematique();
-        $quizz  ->setDateCreation(\DateTime::createFromFormat("Y-m-d H:i:s", $datas["date-creation"]))
-            ->setUtilisateur(
-                $em ->getRepository(Utilisateur::class)
-                    ->findOneBy(["id"=>$datas["user-id"]]))
-            ->setModule(
-                $em ->getRepository(ModuleThematique::class)
-                    ->findOneBy(["id"=>$datas["module-id"]]));
+
+        $quizz = $em->getRepository(ReponseModuleThematique::class)
+                    ->findOneBy(["module"=>$datas["module-id"], "utilisateur"=>$datas["user-id"], "dateCreation"=>$datas["date-creation"]]);
 
        foreach ($datas["reponses"] as $reponse) {
            $quizz->addReponses(
@@ -46,19 +41,8 @@ class QuestionsController extends AbstractController
                    ->findOneBy(["id"=>$reponse])
            );
        }
-
        $em->persist($quizz);
        $em->flush();
-
-/*        for($i = 0; $i < 20; $i++) {
-            $currentAnswer = $request->request->get("answer-"+$i);
-            $quizz->addReponses(
-                $em ->getRepository(QuestionRepository::class)
-                    ->findOneBy(["id"=>$currentAnswer])
-            );
-        }*/
-
-
         return new JsonResponse(null,JsonResponse::HTTP_OK);
     }
 }

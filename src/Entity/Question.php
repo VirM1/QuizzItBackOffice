@@ -45,7 +45,9 @@ class Question
      */
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class,orphanRemoval: true,cascade: ["remove","persist"])]
     private $reponses;
-
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\OneToOne(targetEntity: Reponse::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(onDelete: "SET NULL")]
     private $bonneReponse;
