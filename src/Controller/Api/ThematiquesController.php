@@ -13,9 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ThematiquesController extends AbstractController
 {
-    #[Route('/thematiques', name: 'api_thematiques')]
-    public function retrieveThematiques(ThematiqueRepository $repo): JsonResponse {
-        $thematiques = $repo->findAllRaw();
-        return new JsonResponse($thematiques);
+    #[Route('/thematiques-modules', name: 'api_thematiques_modules')]
+    public function retrieveThematiques(ThematiqueRepository $repo, ModuleThematiqueRepository $mrepo): JsonResponse {
+        $result = array();
+        foreach ($repo->findAllRaw() as $thematique) {
+            array_push($result, array($thematique, $mrepo->findAllByThematiqueId($thematique['id'])));
+        }
+        return new JsonResponse($result);
     }
 }

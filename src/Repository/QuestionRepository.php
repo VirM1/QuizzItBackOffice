@@ -50,7 +50,7 @@ class QuestionRepository extends ServiceEntityRepository
             ->orderBy("RAND()")
             ->setMaxResults(20)
             ->getQuery()
-            ->getArrayResult()
+            ->getResult()
             ;
     }
 

@@ -6,6 +6,9 @@ use App\Repository\ReponseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as Serializer;
 
 #[ORM\Entity(repositoryClass: ReponseRepository::class)]
 class Reponse
@@ -15,12 +18,16 @@ class Reponse
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\Column(type: 'string', length: 100)]
     private $titreReponse;
 
     #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'reponses')]
     #[ORM\JoinColumn(nullable: false,onDelete: "CASCADE")]
     private $question;
+
 
     #[ORM\ManyToMany(targetEntity: ReponseModuleThematique::class, mappedBy: 'reponses')]
     private $reponseModuleThematiques;
