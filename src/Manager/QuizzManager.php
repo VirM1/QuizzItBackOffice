@@ -43,4 +43,30 @@ class QuizzManager {
         $response->headers->set("Content-Type","application/json");
         return $response;
     }
+
+    public function retrieveScore(int $moduleId, int $userId, string $dateCreation) : JsonResponse
+    {
+        $quizz = $this->em->getRepository(ReponseModuleThematique::class)
+            ->findOneBy(["module"=>$moduleId, "utilisateur"=>$userId, "dateCreation"=>$dateCreation]);
+
+        $questions = $quizz->getQuestions();
+        $reponses = $quizz->getReponses();
+
+        $score = 0;
+
+        foreach ($questions as $question){
+            foreach ($reponses as $reponse) {
+                if($reponse->getId() === $question->getBonneReponse()->getId()){
+                    $score++;
+                }
+            }
+        }
+
+        $datas = $this->sm->serializeReponseModuleThematique($quizz);
+
+        $datas = json_decode($datas, true);
+        $datas["score"] = $score;
+
+        return new JsonResponse($datas, JsonResponse::HTTP_OK);
+    }
 }

@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
 
 class QuestionsController extends AbstractController
 {
@@ -43,6 +44,14 @@ class QuestionsController extends AbstractController
        }
        $em->persist($quizz);
        $em->flush();
-        return new JsonResponse(null,JsonResponse::HTTP_OK);
+
+
+        return $this->manager->retrieveScore($datas["module-id"], $datas["user-id"], $datas["date-creation"]);
+    }
+
+    #[Route('/quizz/review', name: 'api_quizz_review')]
+    public function retrieveQuizzResults(Request $request, EntityManagerInterface $em) : JsonResponse{
+        $datas = json_decode($request->getContent(), true);
+        return $this->manager->retrieveScore($datas["module-id"], $datas["user-id"], $datas["date-creation"]);
     }
 }
