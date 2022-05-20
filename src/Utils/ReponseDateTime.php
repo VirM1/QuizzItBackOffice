@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Utils;
+
 class ReponseDateTime extends \DateTime
 {
     public function __toString()
