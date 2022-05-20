@@ -20,14 +20,16 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public const ROLE_ADMIN = "ROLE_ADMIN";
     public const ROLE_USER = "ROLE_USER";
 
-
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
     /**
-     * @Serializer\Groups({"serialize_user_detail"})
+     * @Serializer\Groups({"serialize_user_detail", "serialize_quizz_detail"})
      */
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;
@@ -42,17 +44,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private $tokenUtilisateur;
 
     /**
-     * @Serializer\Groups({"serialize_user_detail"})
+     * @Serializer\Groups({"serialize_user_detail", "serialize_quizz_detail"})
      */
     #[ORM\Column(type: 'string', length: 255)]
     private $nomUtilisateur;
 
 
     /**
-     * @Serializer\Groups({"serialize_user_detail"})
+     * @Serializer\Groups({"serialize_user_detail", "serialize_quizz_detail"})
      */
     #[ORM\Column(type: 'string', length: 255)]
     private $prenomUtilisateur;
+
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: ReponseModuleThematique::class)]
     private $reponseModuleThematiques;

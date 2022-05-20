@@ -6,6 +6,9 @@ use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as Serializer;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
@@ -15,12 +18,21 @@ class Question
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $titreQuestion;
 
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $noteQuestion;
 
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $aideQuestion;
 
@@ -28,12 +40,16 @@ class Question
     #[ORM\JoinColumn(nullable: false)]
     private $moduleThematique;
 
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class,orphanRemoval: true,cascade: ["remove","persist"])]
     private $reponses;
 
     #[ORM\OneToOne(targetEntity: Reponse::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(onDelete: "SET NULL")]
     private $bonneReponse;
+
 
     #[ORM\ManyToMany(targetEntity: ReponseModuleThematique::class, inversedBy: 'questions')]
     #[ORM\JoinTable(name:"questions_reponse_module_thematique")]

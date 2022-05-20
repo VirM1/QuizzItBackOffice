@@ -7,30 +7,51 @@ use App\Utils\ReponseDateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as Serializer;
 
 #[ORM\Entity(repositoryClass: ReponseModuleThematiqueRepository::class)]
 class ReponseModuleThematique
 {
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: ModuleThematique::class, inversedBy: 'reponseModuleThematiques')]
     #[ORM\JoinColumn(nullable: false,referencedColumnName: "id")]
     private $module;
 
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'reponseModuleThematiques')]
     #[ORM\JoinColumn(nullable: false,referencedColumnName: "id")]
     private $utilisateur;
 
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\Id]
     #[ORM\Column(type: 'string')]
     private $dateCreation;
 
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $dateValidation;
 
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\ManyToMany(targetEntity: Question::class, mappedBy: 'reponseModuleThematique')]
     private $questions;
 
+    /**
+     * @Serializer\Groups({"serialize_quizz_detail"})
+     */
     #[ORM\ManyToMany(targetEntity: Reponse::class, inversedBy: 'reponseModuleThematiques')]
     #[ORM\JoinTable(name:"reponses_reponse_module_thematique")]
     #[ORM\JoinColumn(name: "date_creation", referencedColumnName: "date_creation")]
@@ -45,12 +66,12 @@ class ReponseModuleThematique
         $this->reponses = new ArrayCollection();
     }
 
-    public function getDateCreation(): \DateTimeInterface
+    public function getDateCreation(): string
     {
-        return \DateTime::createFromFormat('Y-m-d h:i:s|', $this->dateCreation);
+        return $this->dateCreation;
     }
 
-    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    public function setDateCreation(?\DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation->format('Y-m-d h:i:s');
 
